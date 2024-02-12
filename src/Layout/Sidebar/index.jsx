@@ -72,7 +72,7 @@ const Sidebar = (props) => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, [layout, MENUITEMS]);
+  }, [layout]);
 
   const handleResize = () => {
     setWidth(window.innerWidth - 500);
@@ -110,7 +110,7 @@ const Sidebar = (props) => {
       return menuItems;
     });
     item.active = !item.active;
-    setMainMenu({ mainmenu: MENUITEMS });
+    setMainMenu(MENUITEMS);
   };
 
   const closeOverlay = () => {

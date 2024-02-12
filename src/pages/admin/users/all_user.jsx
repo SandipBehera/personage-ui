@@ -16,39 +16,39 @@ const GetUsers = () => {
     GetAllUsers().then((res) => {
       setData(res.data);
     });
-    All_user_tableColumns.push({
-      name: "Action",
-      cell: (row) => (
-        <div className="d-flex">
-          <Btn
-            attrBtn={{
-              className: "btn-icon",
-              color: "primary",
-              size: "sm",
-              onClick: () => {
-                console.log(row);
-              },
-            }}
-          >
-            <i className="fa fa-pencil"></i>
-            Edit
-          </Btn>
-          <Btn
-            attrBtn={{
-              className: "btn-icon",
-              color: "danger",
-              size: "sm",
-              onClick: () => {
-                console.log(row);
-              },
-            }}
-          >
-            <i className="fa fa-trash"></i>
-            Delete
-          </Btn>
-        </div>
-      ),
-    });
+    // All_user_tableColumns.push({
+    //   name: "Action",
+    //   cell: (row) => (
+    //     <div className="d-flex">
+    //       <Btn
+    //         attrBtn={{
+    //           className: "btn-icon",
+    //           color: "primary",
+    //           size: "sm",
+    //           onClick: () => {
+    //             console.log(row);
+    //           },
+    //         }}
+    //       >
+    //         <i className="fa fa-pencil"></i>
+    //         Edit
+    //       </Btn>
+    //       <Btn
+    //         attrBtn={{
+    //           className: "btn-icon",
+    //           color: "danger",
+    //           size: "sm",
+    //           onClick: () => {
+    //             console.log(row);
+    //           },
+    //         }}
+    //       >
+    //         <i className="fa fa-trash"></i>
+    //         Delete
+    //       </Btn>
+    //     </div>
+    //   ),
+    // });
   }, []);
 
   return (
