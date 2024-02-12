@@ -13,13 +13,13 @@ const SidebarMenuItems = ({
 }) => {
   const { layout } = useContext(CustomizerContext);
   const layout1 = localStorage.getItem("sidebar_layout") || layout;
-  const [userType, setUserType] = React.useState();
+
   const id = window.location.pathname.split("/").pop();
   const layoutId = id;
   const CurrentPath = window.location.pathname;
   const [MENUITEMS, setMenuitem] = React.useState([]);
+  const userType = sessionStorage.getItem("user_type");
   React.useEffect(() => {
-    setUserType(sessionStorage.getItem("user_type"));
     if (userType === "admin") {
       setMenuitem(AdminMenu);
     } else if (userType === "Manager") {
