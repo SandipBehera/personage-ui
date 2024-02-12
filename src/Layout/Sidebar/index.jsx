@@ -34,11 +34,6 @@ const Sidebar = (props) => {
   };
 
   useEffect(() => {
-    document.querySelector(".left-arrow").classList.add("d-none");
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    const currentUrl = window.location.pathname;
-    setUserType(sessionStorage.getItem("user_type"));
     if (userType === "admin") {
       setMainMenu(AdminMenu);
     } else if (userType === "Manager") {
@@ -46,6 +41,10 @@ const Sidebar = (props) => {
     } else {
       setMainMenu(UserMenu);
     }
+    document.querySelector(".left-arrow").classList.add("d-none");
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    const currentUrl = window.location.pathname;
     MENUITEMS.map((items) => {
       items.Items.filter((Items) => {
         if (Items.path === currentUrl) setNavActive(Items);
@@ -73,7 +72,7 @@ const Sidebar = (props) => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleResize);
     };
-  }, [layout]);
+  }, [layout, MENUITEMS]);
 
   const handleResize = () => {
     setWidth(window.innerWidth - 500);

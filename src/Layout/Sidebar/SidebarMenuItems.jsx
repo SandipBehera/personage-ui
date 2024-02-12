@@ -64,7 +64,7 @@ const SidebarMenuItems = ({
       });
     }
     item.active = !item.active;
-    setMainMenu({ mainmenu: MENUITEMS });
+    setMainMenu(MENUITEMS);
   };
 
   return (
