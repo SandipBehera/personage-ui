@@ -16,7 +16,8 @@ const LayoutRoutes = () => {
                 </Route>
               </Fragment>
             ))
-          : userType === "Manager"
+          : userType === "Manager" ||
+            userType === userType.match(/Head.*/)?.input
           ? managerRoutes.map(({ path, Component }, i) => (
               <Fragment key={i}>
                 <Route element={<AppLayout />} key={i}>

@@ -36,7 +36,10 @@ const Sidebar = (props) => {
   useEffect(() => {
     if (userType === "admin") {
       setMainMenu(AdminMenu);
-    } else if (userType === "Manager") {
+    } else if (
+      userType === "Manager" ||
+      userType === userType.match(/Head.*/)?.input
+    ) {
       setMainMenu(ManagerMenu);
     } else {
       setMainMenu(UserMenu);

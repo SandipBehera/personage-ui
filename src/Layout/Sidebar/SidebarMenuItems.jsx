@@ -22,7 +22,10 @@ const SidebarMenuItems = ({
   React.useEffect(() => {
     if (userType === "admin") {
       setMenuitem(AdminMenu);
-    } else if (userType === "Manager") {
+    } else if (
+      userType === "Manager" ||
+      userType === userType.match(/Head.*/)?.input
+    ) {
       setMenuitem(ManagerMenu);
     } else {
       setMenuitem(UserMenu);

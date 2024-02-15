@@ -400,6 +400,9 @@ export const routes = [
 
 export const managerRoutes = [
   { path: `/dashboard`, Component: <ManagerDashboard /> },
+  //users Data
+  { path: "/users/create-users", Component: <CreateUsers /> },
+  { path: "/user/all-users", Component: <GetUsers /> },
 ];
 
 export const userRoutes = [

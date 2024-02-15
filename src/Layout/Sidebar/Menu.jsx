@@ -766,6 +766,16 @@ export const ManagerMenu = [
         title: "Dashboard",
         type: "link",
       },
+      {
+        title: "Users",
+        icon: "user",
+        type: "sub",
+        active: false,
+        children: [
+          { path: `users/create-users`, type: "link", title: "Create Users" },
+          { path: `user/all-users`, type: "link", title: "All Users" },
+        ],
+      },
     ],
   },
 ];

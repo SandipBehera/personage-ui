@@ -13,11 +13,15 @@ import {
   Label,
   Row,
 } from "reactstrap";
-import { OnboardingUsers } from "../../../api_handler/onbordUsers";
+import {
+  GetReportingUsers,
+  OnboardingUsers,
+} from "../../../api_handler/onbordUsers";
 import { toast } from "react-toastify";
 
 const CreateUsers = () => {
   const [formdata, setFormdata] = useState({});
+  const [ReportingUsers, setReportingUsers] = useState([]);
   const {
     register,
     handleSubmit,
@@ -27,6 +31,12 @@ const CreateUsers = () => {
   useEffect(() => {
     console.log(formdata);
   }, [formdata]);
+
+  const fetch_Reporting_user_list = (e) => {
+    GetReportingUsers({ user_type: e.target.value }).then((res) => {
+      setReportingUsers(res.data);
+    });
+  };
 
   const onSubmit = (data) => {
     setFormdata(data);
@@ -152,15 +162,20 @@ const CreateUsers = () => {
                       }`}
                       name="user_type"
                       defaultValue={formdata.user_type || ""}
-                      {...register("user_type", { required: true })}
+                      {...register("user_type", {
+                        required: true,
+                        onChange: (e) => {
+                          fetch_Reporting_user_list(e);
+                        },
+                      })}
                     >
                       <option value="">select</option>
                       <option value="Admin">Admin</option>
                       <option value={"Manager"}>Manager</option>
-                      <option value={"Employee-Interviewer"}>
-                        Employee-Interviewer
-                      </option>
-                      <option value={"Employee-HR"}>Employee-Hr</option>
+                      <option value={"hrHead"}>HR-Head</option>
+                      <option value={"techHead"}>Technology-Head</option>
+                      <option value={"recruiter"}>Recruiter</option>
+                      <option value={"interviewer"}>Interviewer</option>
                     </select>
                     <span className="text-danger">
                       {errors.user_type && "UserType is required"}
@@ -225,9 +240,11 @@ const CreateUsers = () => {
                       {...register("reporting_manager", { required: true })}
                     >
                       <option>select</option>
-                      <option value={"Sandip"}>Sandip</option>
-                      <option value={"Shubham"}>Shubham</option>
-                      <option value={"Himanshu"}>Himanshu</option>
+                      {ReportingUsers.map((user, i) => (
+                        <option key={i} value={user.username}>
+                          {user.first_name + " " + user.last_name}
+                        </option>
+                      ))}
                     </select>
                     <span className="text-danger">
                       {errors.reporting_manager &&
