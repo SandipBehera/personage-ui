@@ -1,7 +1,7 @@
 import { Api_Url, Local_Api_Url } from "../api";
 
 export const OnboardingUsers = async (data) => {
-  return await fetch(Local_Api_Url + "create_user", {
+  return await fetch(Api_Url + "create_user", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -17,7 +17,7 @@ export const OnboardingUsers = async (data) => {
 };
 
 export const GetAllUsers = async () => {
-  return await fetch(Local_Api_Url + "get_all_users", {
+  return await fetch(Api_Url + "get_all_users", {
     method: "GET",
     headers: {
       Accept: "application/json",
@@ -32,7 +32,7 @@ export const GetAllUsers = async () => {
 };
 
 export const LoginUser = async (data) => {
-  return await fetch(Local_Api_Url + "login", {
+  return await fetch(Api_Url + "login", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -48,7 +48,7 @@ export const LoginUser = async (data) => {
 };
 
 export const GetReportingUsers = async (data) => {
-  return await fetch(Local_Api_Url + "get_user_type_list", {
+  return await fetch(Api_Url + "get_user_type_list", {
     method: "POST",
     headers: {
       Accept: "application/json",
