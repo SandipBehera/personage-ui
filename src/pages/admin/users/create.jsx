@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 const CreateUsers = () => {
   const [formdata, setFormdata] = useState({});
   const [ReportingUsers, setReportingUsers] = useState([]);
+  const userType = sessionStorage.getItem("user_type");
   const {
     register,
     handleSubmit,
@@ -43,6 +44,7 @@ const CreateUsers = () => {
     OnboardingUsers(data).then((res) => {
       if (res.status === "success") {
         toast.success(res.message);
+        window.location.replace("/users/all_users");
       } else {
         toast.error(res.message);
       }
@@ -170,12 +172,23 @@ const CreateUsers = () => {
                       })}
                     >
                       <option value="">select</option>
-                      <option value="Admin">Admin</option>
-                      <option value={"Manager"}>Manager</option>
-                      <option value={"hrHead"}>HR-Head</option>
-                      <option value={"techHead"}>Technology-Head</option>
-                      <option value={"recruiter"}>Recruiter</option>
-                      <option value={"interviewer"}>Interviewer</option>
+                      {userType === "admin" ? (
+                        <>
+                          <option value="Admin">Admin</option>
+                          <option value={"Manager"}>Manager</option>
+                          <option value={"hrHead"}>HR-Head</option>
+                          <option value={"techHead"}>Technology-Head</option>
+                          <option value={"recruiter"}>Recruiter</option>
+                          <option value={"interviewer"}>Interviewer</option>
+                        </>
+                      ) : (
+                        <>
+                          <option value={"Manager"}>Manager</option>
+                          <option value={"hrHead"}>HR-Head</option>
+                          <option value={"techHead"}>Technology-Head</option>
+                          <option value={"recruiter"}>Recruiter</option>
+                        </>
+                      )}
                     </select>
                     <span className="text-danger">
                       {errors.user_type && "UserType is required"}
