@@ -187,6 +187,7 @@ const CreateUsers = () => {
                           <option value={"hrHead"}>HR-Head</option>
                           <option value={"techHead"}>Technology-Head</option>
                           <option value={"recruiter"}>Recruiter</option>
+                          <option value={"interviewer"}>Interviewer</option>
                         </>
                       )}
                     </select>
