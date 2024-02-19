@@ -44,7 +44,7 @@ const CreateUsers = () => {
     OnboardingUsers(data).then((res) => {
       if (res.status === "success") {
         toast.success(res.message);
-        window.location.replace("/users/all_users");
+        window.location.replace(`/${userType}/all_users`);
       } else {
         toast.error(res.message);
       }
