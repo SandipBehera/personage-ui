@@ -50,7 +50,7 @@ const CreateJobId = () => {
     const formDatas = new FormData();
 
     // Append key-value pairs to FormData
-    formDatas.append("jobId", data.jobId);
+    formDatas.append("jobID", data.jobId);
     formDatas.append("department", data.dept);
     formDatas.append("jobTitle", data.jobt);
     formDatas.append("manager", data.mname);
