@@ -16,6 +16,7 @@ import CKEditors from "react-ckeditor-component";
 import { CreateNewJob } from "../../../../api_handler/jobHandler";
 
 const CreateJobId = () => {
+  const userType = sessionStorage.getItem("user_type");
   const [formdata, setFormdata] = useState({});
   const {
     register,
@@ -70,7 +71,7 @@ const CreateJobId = () => {
     // Assuming CreateNewJob is an async function
     CreateNewJob(formDatas)
       .then((res) => {
-        console.log(res);
+        window.location.replace(`/${userType}/job/all-jobs`);
       })
       .catch((error) => {
         console.error("Error sending form data:", error);

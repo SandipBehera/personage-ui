@@ -13,3 +13,16 @@ export async function CreateNewJob(formData) {
       console.error("Error:", error);
     });
 }
+
+export async function GetJobDetails() {
+  return await fetch(Api_Url + "get-upload-status", {
+    method: "GET",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
