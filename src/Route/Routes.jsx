@@ -183,6 +183,8 @@ import CreateUsers from "../pages/admin/users/create";
 import GetUsers from "../pages/admin/users/all_user";
 import ManagerDashboard from "../pages/manager/ManagerDashboard";
 import UserDashboard from "../pages/user/userDashboard";
+import CreateJobId from "../pages/user/recruiter/job_id/create_job_id";
+import AllJobs from "../pages/user/recruiter/job_id/all_job";
 
 export const old_routes = [
   { path: `/dashboard/default/:layout`, Component: <Default /> },
@@ -407,4 +409,6 @@ export const managerRoutes = [
 
 export const userRoutes = [
   { path: `/dashboard`, Component: <UserDashboard /> },
+  { path: `job/create-new-job`, Component: <CreateJobId /> },
+  { path: `job/all-jobs`, Component: <AllJobs /> },
 ];

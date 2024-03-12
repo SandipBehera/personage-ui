@@ -791,6 +791,21 @@ export const UserMenu = [
         title: "Dashboard",
         type: "link",
       },
+      {
+        path: `Jobs`,
+        icon: "file",
+        title: "Jobs",
+        type: "sub",
+        active: false,
+        children: [
+          {
+            path: `job/create-new-job`,
+            type: "link",
+            title: "Create New Job",
+          },
+          { path: `job/all-jobs`, type: "link", title: "All Jobs" },
+        ],
+      },
     ],
   },
 ];
