@@ -59,6 +59,15 @@ export const AllJobs = () => {
       },
     },
     {
+      name: "jobID",
+      label: "Job ID",
+      selector: (row, index) => row.keyName,
+      options: {
+        filter: true,
+        sort: true,
+      },
+    },
+    {
       name: "count",
       label: "Count",
       selector: (row, index) => row.count,
@@ -166,6 +175,11 @@ export const AllJobs = () => {
   const handleRowSelected = useCallback((state) => {
     setSelectedRows(state.selectedRows);
   }, []);
+  const transformedData = Object.entries(fetchData).map(([key, value]) => ({
+    id: key,
+    keyName: key,
+    ...value,
+  }));
   const options = {
     selectableRows: "multiple",
     onSelectedRowsChange: handleRowSelected,
@@ -186,7 +200,7 @@ export const AllJobs = () => {
           <CardBody>
             <H5>All Jobs</H5>
             <DataTable
-              data={Object.values(fetchData)}
+              data={transformedData}
               columns={tableColumns}
               options={options}
             />
