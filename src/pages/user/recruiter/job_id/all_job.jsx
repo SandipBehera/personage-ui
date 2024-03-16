@@ -13,6 +13,7 @@ import {
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import { GetJobDetails } from "../../../../api_handler/jobHandler";
+import { set } from "date-fns";
 
 export const AllJobs = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -22,44 +23,30 @@ export const AllJobs = () => {
   const toggleDropdown = (id) => {
     setActiveDropdown(activeDropdown === id ? null : id);
   };
-  useEffect(async () => {
-    return await GetJobDetails().then((res) => {
-      setFetchData(res);
-    });
+  useEffect(() => {
+    const fetch = async () => {
+      try {
+        await GetJobDetails().then((res) => {
+          setFetchData(res);
+        });
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetch();
   }, []);
-  console.log("first", fetchData);
-  const data = [
-    {
-      id: 1,
-      JobTitle: "Software Developer",
-      applicats_count: 10,
-      status: "Active",
-    },
-    {
-      id: 2,
-      JobTitle: "Software Developer",
-      applicats_count: 10,
-      status: "Inprogress",
-    },
-    {
-      id: 3,
-      JobTitle: "Software Developer",
-      applicats_count: 10,
-      status: "Complete",
-    },
-  ];
 
   const tableColumns = [
     {
-      name: "id",
-      label: "ID",
+      name: "SL No.",
+      label: "SL No.",
       selector: (row, index) => index + 1,
       options: {
         display: "false", // Set to true if you want to display the ID
       },
     },
     {
-      name: "jobID",
+      name: "Job ID",
       label: "Job ID",
       selector: (row, index) => row.keyName,
       options: {
@@ -68,7 +55,7 @@ export const AllJobs = () => {
       },
     },
     {
-      name: "count",
+      name: "Count",
       label: "Count",
       selector: (row, index) => row.count,
       options: {
@@ -77,7 +64,7 @@ export const AllJobs = () => {
       },
     },
     {
-      name: "jobTitle",
+      name: "Job Title",
       label: "Job Title",
       selector: (row, index) => row.jobTitle,
       options: {
@@ -86,92 +73,67 @@ export const AllJobs = () => {
       },
     },
     {
-      name: "status",
+      name: "Status",
       label: "Status",
-      selector: (row, index) => row.status,
+      cell: (row, index) => {
+        return row.status === "uploaded" ? (
+          <Button color="warning">Parsing</Button>
+        ) : row.status === "parsing" ? (
+          <Button color="warning">Parsing</Button>
+        ) : row.status === "screening" ? (
+          <Button color="warning">Screening</Button>
+        ) : row.status === "complete" ? (
+          <Button color="success">Complete</Button>
+        ) : row.status === "closed" ? (
+          <Button color="secondary">Closed</Button>
+        ) : (
+          <Button color="danger">Failed</Button>
+        );
+      },
+
       options: {
         filter: true,
         sort: true,
       },
     },
+    {
+      name: "Action",
+      cell: (row) => (
+        <Dropdown
+          isOpen={activeDropdown === row.id}
+          toggle={() => toggleDropdown(row.id)}
+        >
+          <DropdownToggle caret color="secondary">
+            Action
+          </DropdownToggle>
+          <DropdownMenu
+            style={{
+              position: "absolute",
+              top: "100%",
+              left: 0,
+              maxHeight: "200px",
+              overflowY: "auto",
+            }}
+          >
+            <DropdownItem>
+              <Link
+                to={`/recruiter/job_id/workflows/viewJobDetails/${row.keyName}`}
+                //   state={{ bookDetails: row }}
+              >
+                View Details
+              </Link>
+            </DropdownItem>
+            <DropdownItem>
+              <Link to="#">Add More Resumes</Link>
+            </DropdownItem>
+            <DropdownItem>
+              <Link to="#">Mark Complete</Link>
+            </DropdownItem>
+          </DropdownMenu>
+        </Dropdown>
+      ),
+    },
   ];
-
-  //   const tableColumns = [
-  //     {
-  //       name: "JobId",
-  //       selector: (row, index) => index + 1,
-  //       sortable: true,
-  //       center: false,
-  //     },
-  //     {
-  //       name: "Job Title",
-  //       selector: (row) => `${row.JobTitle}`,
-  //       sortable: true,
-  //       center: true,
-  //     },
-  //     {
-  //       name: "Total Applicants",
-  //       selector: (row) => `${row.applicats_count}`,
-  //       sortable: true,
-  //       center: true,
-  //     },
-  //     {
-  //       name: "Status",
-  //       selector: (row) => (
-  //         <Button
-  //           color={
-  //             row.status === "Active"
-  //               ? "info"
-  //               : row.status === "Inprogress"
-  //               ? "primary"
-  //               : "success"
-  //           }
-  //           className="px-3"
-  //         >
-  //           {row.status}
-  //         </Button>
-  //       ),
-  //       sortable: true,
-  //       center: true,
-  //     },
-  //     {
-  //       name: "Action",
-  //       cell: (row) => (
-  //         <Dropdown
-  //           isOpen={activeDropdown === row.id}
-  //           toggle={() => toggleDropdown(row.id)}
-  //         >
-  //           <DropdownToggle caret color="secondary">
-  //             Action
-  //           </DropdownToggle>
-  //           <DropdownMenu
-  //             style={{
-  //               position: "absolute",
-  //               top: "100%",
-  //               left: 0,
-  //               maxHeight: "200px",
-  //               overflowY: "auto",
-  //             }}
-  //           >
-  //             <DropdownItem>
-  //               <Link
-  //                 to={`#`}
-  //                 //   state={{ bookDetails: row }}
-  //               >
-  //                 View Details
-  //               </Link>
-  //             </DropdownItem>
-  //             <DropdownItem>
-  //               <Link to="#">Add More Resumes</Link>
-  //             </DropdownItem>
-  //             <DropdownItem>
-  //               <Link to="#">Mark Complete</Link>
-  //             </DropdownItem>
-  //           </DropdownMenu>
-  //         </Dropdown>
-  //       ),
-  //     },
-  //   ];
   const handleRowSelected = useCallback((state) => {
     setSelectedRows(state.selectedRows);
   }, []);
