@@ -26,3 +26,20 @@ export async function GetJobDetails() {
       console.error("Error:", error);
     });
 }
+
+export async function GetJobDetailsById(jobId) {
+  return await fetch(Api_Url + "get_job_details", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(jobId),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      return data;
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}

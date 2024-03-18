@@ -34,3 +34,4 @@ export const ThemifyDataApi = `${api}/themifyData.json`;
 
 export const Api_Url = "http://98.70.90.20:5000/";
 export const Local_Api_Url = "http://localhost:5001/";
+export const Socket_url = "http://98.70.90.20:5000";

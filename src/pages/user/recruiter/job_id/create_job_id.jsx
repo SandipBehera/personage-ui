@@ -1,9 +1,10 @@
 import react, { Fragment, useState } from "react";
-import { Breadcrumbs, Btn } from "../../../../AbstractElements";
+import { Breadcrumbs, Btn, P } from "../../../../AbstractElements";
 import {
   Card,
   CardBody,
   CardFooter,
+  CardHeader,
   Col,
   Container,
   Form,
@@ -14,10 +15,13 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import CKEditors from "react-ckeditor-component";
 import { CreateNewJob } from "../../../../api_handler/jobHandler";
+import WorkFlowModal from "./components/modal";
 
 const CreateJobId = () => {
   const userType = sessionStorage.getItem("user_type");
   const [formdata, setFormdata] = useState({});
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
   const {
     register,
     handleSubmit,
@@ -33,21 +37,6 @@ const CreateJobId = () => {
 
   const onSubmit = (data) => {
     setFormdata(data);
-    // console.log(data);
-    // console.log(content);
-    // const post_data = {
-    //   jobId: data.jobId,
-    //   department: data.dept,
-    //   jobTitle: data.jobt,
-    //   manager: data.mname,
-    //   owner: data.oname,
-    //   count: data.jobcount,
-    //   jd: content,
-    //   files: files,
-    // };
-
-    // console.log(post_data.files);
-    // post_data.files = JSON.stringify(post_data.files);
     const formDatas = new FormData();
 
     // Append key-value pairs to FormData
@@ -67,11 +56,12 @@ const CreateJobId = () => {
     for (const pair of formDatas.entries()) {
       console.log(pair[0], pair[1]);
     }
-
+    setModal(true);
     // Assuming CreateNewJob is an async function
     CreateNewJob(formDatas)
       .then((res) => {
-        window.location.replace(`/${userType}/job/all-jobs`);
+        console.log(res);
+        // window.location.replace(`/${userType}/job/all-jobs`);
       })
       .catch((error) => {
         console.error("Error sending form data:", error);
@@ -263,6 +253,31 @@ const CreateJobId = () => {
             </Form>
           </CardBody>
         </Card>
+        <WorkFlowModal
+          isOpen={modal}
+          title={""}
+          toggler={toggle}
+          bodyClass="grid-showcase"
+          cancel={"cancel"}
+          save={"Redirect To All Jobs"}
+          saveType={"url"}
+          redection_url={`/${userType}/job/all-jobs`}
+        >
+          <Container fluid={true} className="bd-example-row">
+            <Card>
+              {/* <CardHeader style={{ backgroundColor: "blue" }}>{""}</CardHeader> */}
+              <CardBody>
+                <i
+                  className="fa fa-tasks"
+                  aria-hidden="true"
+                  style={{ textAlign: "center", fontSize: "40px" }}
+                ></i>
+                <br />
+                <P>Job Id has been Created</P>
+              </CardBody>
+            </Card>
+          </Container>
+        </WorkFlowModal>
       </Container>
     </Fragment>
   );

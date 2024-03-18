@@ -13,7 +13,8 @@ import {
 import DataTable from "react-data-table-component";
 import { Link } from "react-router-dom";
 import { GetJobDetails } from "../../../../api_handler/jobHandler";
-import { set } from "date-fns";
+import { Socket_url } from "../../../../api";
+import io from "socket.io-client";
 
 export const AllJobs = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -23,17 +24,49 @@ export const AllJobs = () => {
   const toggleDropdown = (id) => {
     setActiveDropdown(activeDropdown === id ? null : id);
   };
+  const fetch = async () => {
+    try {
+      await GetJobDetails().then((res) => {
+        setFetchData(res);
+      });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const fetch = async () => {
-      try {
-        await GetJobDetails().then((res) => {
-          setFetchData(res);
-        });
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
     fetch();
+  }, []);
+  useEffect(() => {
+    const socket = io(Socket_url);
+    socket.on("connect", () => {
+      console.log("Connected to the server.");
+
+      socket.on("resume_status", (data) => {
+        console.log("Upload complete:", data);
+        return fetch();
+      });
+
+      socket.on("parsing_files", (data) => {
+        console.log("parsing_files:", data);
+      });
+
+      socket.on("hahahaha", (data) => {
+        console.log("screening_complete:", data);
+      });
+
+      socket.on("current_status", (data) => {
+        console.log("Upload complete:", data);
+      });
+    });
+
+    socket.on("disconnect", () => {
+      console.log("Disconnected from the server.");
+    });
+
+    // Clean up the socket connection on component unmount
+    return () => {
+      socket.disconnect();
+    };
   }, []);
 
   const tableColumns = [
@@ -78,7 +111,7 @@ export const AllJobs = () => {
       cell: (row, index) => {
         return row.status === "uploaded" ? (
           <Button color="warning">Parsing</Button>
-        ) : row.status === "parsing" ? (
+        ) : row.status === "parsed" ? (
           <Button color="warning">Parsing</Button>
         ) : row.status === "screening" ? (
           <Button color="warning">Screening</Button>

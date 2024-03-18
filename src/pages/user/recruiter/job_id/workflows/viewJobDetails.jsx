@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import { Breadcrumbs } from "../../../../../AbstractElements";
 import { useParams } from "react-router";
 import {
@@ -12,29 +12,28 @@ import {
   Row,
 } from "reactstrap";
 import DataTable from "react-data-table-component";
+import { GetJobDetailsById } from "../../../../../api_handler/jobHandler";
 
 const ViewJobDetailsById = () => {
   const { jobId } = useParams();
-  const data = [
-    {
-      reqid: jobId,
-      candidate_name: "John Doe",
-      status: "Approved-AI",
-      ai_comment: "Good",
-    },
-    {
-      reqid: jobId,
-      candidate_name: "John Doe",
-      status: "Approved-AI",
-      ai_comment: "Bad",
-    },
-    {
-      reqid: jobId,
-      candidate_name: "John Doe",
-      status: "Approved-AI",
-      ai_comment: "Good",
-    },
-  ];
+  const [data, setData] = useState([]);
+  const fetch = async () => {
+    const body = { requisition_id: jobId };
+    return await GetJobDetailsById(body).then((res) => {
+      // setData(res);
+      const fetchdata = Object.values(res).map((item) => ({
+        candidate_name: item.file_name,
+        reqid: jobId,
+        status: item.ai_response["Decision"],
+        ai_comment: item.ai_response["Reason"],
+      }));
+      setData(fetchdata);
+    });
+  };
+  useEffect(() => {
+    fetch();
+  }, []);
+  console.log("first", data);
   const tableColumns = [
     {
       name: "SL No.",

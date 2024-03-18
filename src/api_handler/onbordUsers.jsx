@@ -19,11 +19,6 @@ export const OnboardingUsers = async (data) => {
 export const GetAllUsers = async () => {
   return await fetch(Api_Url + "get_all_users", {
     method: "GET",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
   })
     .then((response) => {
       return response.json();
