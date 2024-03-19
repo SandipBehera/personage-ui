@@ -42,24 +42,29 @@ const Signin = ({ selected }) => {
       password: password,
     };
     LoginUser(data).then((res) => {
-      if (res.message === "Success") {
-        sessionStorage.setItem("login", JSON.stringify(true));
-        sessionStorage.setItem("user_type", res.user_data.user_type);
-        sessionStorage.setItem(
-          "Name",
-          res.user_data.first_name + res.user_data.last_name
-        );
-        sessionStorage.setItem("user_id", res.user_data.username);
-        sessionStorage.setItem("authenticated", JSON.stringify(true));
-        localStorage.setItem(
-          "sidebar_layout",
-          "horizontal-wrapper enterprice-type advance-layout"
-        );
-        window.location.href = `${res.user_data.user_type}/dashboard`;
+      try {
+        if (res.message === "Success") {
+          sessionStorage.setItem("login", JSON.stringify(true));
+          sessionStorage.setItem("user_type", res.user_data.user_type);
+          sessionStorage.setItem(
+            "Name",
+            res.user_data.first_name + res.user_data.last_name
+          );
+          sessionStorage.setItem("user_id", res.user_data.username);
+          sessionStorage.setItem("authenticated", JSON.stringify(true));
+          localStorage.setItem(
+            "sidebar_layout",
+            "horizontal-wrapper enterprice-type advance-layout"
+          );
+          window.location.href = `${res.user_data.user_type}/dashboard`;
 
-        toast.success("Successfully logged in!..");
-      } else {
-        toast.error("You enter wrong password or username!..");
+          toast.success("Successfully logged in!..");
+        } else {
+          toast.error("You enter wrong password or username!..");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        toast.error("internal server error!..");
       }
     });
   };
