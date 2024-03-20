@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { GetJobDetails } from "../../../../api_handler/jobHandler";
 import { Socket_url } from "../../../../api";
 import io from "socket.io-client";
+import { userType } from "../../../../Constant";
 
 export const AllJobs = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
@@ -150,7 +151,7 @@ export const AllJobs = () => {
           >
             <DropdownItem>
               <Link
-                to={`/recruiter/job_id/workflows/viewJobDetails/${row.keyName}`}
+                to={`/${userType}/job_id/workflows/viewJobDetails/${row.keyName}`}
                 //   state={{ bookDetails: row }}
               >
                 View Details

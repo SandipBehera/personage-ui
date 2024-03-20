@@ -31,6 +31,7 @@ const ViewJobDetailsById = () => {
   const [jobStatus, setJobStatus] = useState("");
 
   const modalToggle = () => setModal(!modal);
+
   const fetch = async () => {
     const body = { requisition_id: jobId };
     return await GetJobDetailsById(body).then((res) => {
@@ -44,6 +45,7 @@ const ViewJobDetailsById = () => {
       setData(fetchdata);
     });
   };
+
   const fetchStatus = async () => {
     try {
       await GetJobDetails().then((res) => {
@@ -57,6 +59,7 @@ const ViewJobDetailsById = () => {
     fetch();
     fetchStatus();
   }, []);
+
   useEffect(() => {
     const socket = io(Socket_url);
     socket.on("connect", () => {
