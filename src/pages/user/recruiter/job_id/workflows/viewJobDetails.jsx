@@ -159,8 +159,8 @@ const ViewJobDetailsById = () => {
     <Fragment>
       <Breadcrumbs
         parent="Job"
-        title={"View Job Details-" + jobId}
-        mainTitle={"View Job Details-" + jobId}
+        title={"View Job Details"}
+        mainTitle={"View Job Details"}
       />
       <Container fluid={true}>
         <Card>
@@ -174,7 +174,7 @@ const ViewJobDetailsById = () => {
                     jobStatus === "screening" ? (
                       <Button color="warning">{jobStatus}</Button>
                     ) : (
-                      <Button color="success">{jobStatus}</Button>
+                      <Button color="success">Complete</Button>
                     )}
                   </Col>
                   <Col md="2">

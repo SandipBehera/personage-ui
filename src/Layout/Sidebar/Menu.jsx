@@ -762,7 +762,7 @@ export const ManagerMenu = [
     Items: [
       {
         path: `dashboard`,
-        icon: "file",
+        icon: "support-tickets",
         title: "Dashboard",
         type: "link",
       },
@@ -785,15 +785,15 @@ export const UserMenu = [
     menutitle: "Dashboard",
     menucontent: "Ready to use Apps",
     Items: [
+      // {
+      //   path: `dashboard`,
+      //   icon: "file",
+      //   title: "Dashboard",
+      //   type: "link",
+      // },
       {
-        path: `dashboard`,
-        icon: "file",
-        title: "Dashboard",
-        type: "link",
-      },
-      {
-        path: `Jobs`,
-        icon: "file",
+        path: `Screening`,
+        icon: "editors",
         title: "Jobs",
         type: "sub",
         active: false,
@@ -806,6 +806,24 @@ export const UserMenu = [
           { path: `job/all-jobs`, type: "link", title: "All Jobs" },
         ],
       },
+      {
+          path: `#`,
+          icon: "form",
+          title: "Scheduling",
+          type: "link",
+        },
+        {
+          path: `#`,
+          icon: "charts",
+          title: "Dashboard",
+          type: "link",
+        },
+        {
+          path: `#`,
+          icon: "table",
+          title: "Analytics",
+          type: "link",
+        },
     ],
   },
 ];

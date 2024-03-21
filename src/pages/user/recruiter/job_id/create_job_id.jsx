@@ -72,9 +72,9 @@ const CreateJobId = () => {
     <Fragment>
       <Breadcrumbs
         parent="Job"
-        title="Create Job ID"
+        title="Create New Job"
         subParent="Job ID"
-        mainTitle="Create Job ID"
+        mainTitle="Create New Job"
       />
 
       <Container fluid={true}>
@@ -206,6 +206,7 @@ const CreateJobId = () => {
                           name="file"
                           onChange={(e) => setFiles([...e.target.files])}
                           multiple
+                          className='form-control'
                         />
                         <span className="text-danger">
                           {errors.file && "Resumes is required"}
@@ -246,7 +247,7 @@ const CreateJobId = () => {
                       type: "submit",
                     }}
                   >
-                    Start Screening...
+                    Start Screening
                   </Btn>
                 </CardFooter>
               </Card>

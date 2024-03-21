@@ -71,14 +71,14 @@ export const AllJobs = () => {
   }, []);
 
   const tableColumns = [
-    {
-      name: "SL No.",
-      label: "SL No.",
-      selector: (row, index) => index + 1,
-      options: {
-        display: "false", // Set to true if you want to display the ID
-      },
-    },
+    // {
+    //   name: "SL No.",
+    //   label: "SL No.",
+    //   selector: (row, index) => index + 1,
+    //   options: {
+    //     display: "false", // Set to true if you want to display the ID
+    //   },
+    // },
     {
       name: "Job ID",
       label: "Job ID",
@@ -87,6 +87,7 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
+      width: "15%"
     },
     {
       name: "Count",
@@ -96,6 +97,7 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
+      width: "15%"
     },
     {
       name: "Job Title",
@@ -105,23 +107,24 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
+      width: "15%"
     },
     {
       name: "Status",
       label: "Status",
       cell: (row, index) => {
         return row.status === "uploaded" ? (
-          <Button color="warning">Parsing</Button>
+          <Button color="warning" style={{ width: '100%' }}>Parsing</Button>
         ) : row.status === "parsed" ? (
-          <Button color="warning">Parsing</Button>
+          <Button color="warning" style={{ width: '100%' }}>Parsing</Button>
         ) : row.status === "screening" ? (
-          <Button color="warning">Screening</Button>
+          <Button color="warning" style={{ width: '100%' }}>Screening</Button>
         ) : row.status === "complete" ? (
-          <Button color="success">Complete</Button>
+          <Button color="success" style={{ width: '100%' }}>Complete</Button>
         ) : row.status === "closed" ? (
-          <Button color="secondary">Closed</Button>
+          <Button color="secondary" style={{ width: '100%' }}>Closed</Button>
         ) : (
-          <Button color="danger">Failed</Button>
+          <Button color="danger" style={{ width: '100%' }}>Failed</Button>
         );
       },
 
@@ -129,9 +132,11 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
+      width: "20%"
     },
     {
       name: "Action",
+      width: "20%",
       cell: (row) => (
         <Dropdown
           isOpen={activeDropdown === row.id}
@@ -152,7 +157,7 @@ export const AllJobs = () => {
             <DropdownItem>
               <Link
                 to={`/${userType}/job_id/workflows/viewJobDetails/${row.keyName}`}
-                //   state={{ bookDetails: row }}
+              //   state={{ bookDetails: row }}
               >
                 View Details
               </Link>
@@ -181,6 +186,8 @@ export const AllJobs = () => {
     onSelectedRowsChange: handleRowSelected,
     pagination: true,
     center: true,
+    dense: true,
+    responsive: true,
   };
 
   return (
@@ -189,12 +196,11 @@ export const AllJobs = () => {
         parent="Job"
         title="All Jobs"
         subParent="Job ID"
-        mainTitle="All Job ID"
+        mainTitle="All Jobs"
       />
       <Container fluid={true}>
         <Card>
           <CardBody>
-            <H5>All Jobs</H5>
             <DataTable
               data={transformedData}
               columns={tableColumns}
