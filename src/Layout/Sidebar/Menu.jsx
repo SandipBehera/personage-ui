@@ -792,6 +792,12 @@ export const UserMenu = [
       //   type: "link",
       // },
       {
+        path: `#`,
+        icon: "charts",
+        title: "Dashboard",
+        type: "link",
+      },
+      {
         path: `Screening`,
         icon: "editors",
         title: "Jobs",
@@ -807,23 +813,17 @@ export const UserMenu = [
         ],
       },
       {
-          path: `#`,
-          icon: "form",
-          title: "Scheduling",
-          type: "link",
-        },
-        {
-          path: `#`,
-          icon: "charts",
-          title: "Dashboard",
-          type: "link",
-        },
-        {
-          path: `#`,
-          icon: "table",
-          title: "Analytics",
-          type: "link",
-        },
+        path: `#`,
+        icon: "form",
+        title: "Scheduling",
+        type: "link",
+      },
+      {
+        path: `#`,
+        icon: "table",
+        title: "Analytics",
+        type: "link",
+      },
     ],
   },
 ];
