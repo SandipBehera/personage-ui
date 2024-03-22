@@ -1,6 +1,7 @@
 import React, { Fragment, useCallback, useEffect, useState } from "react";
 import { Breadcrumbs, Btn, H5 } from "../../../../AbstractElements";
 import {
+  Badge,
   Button,
   Card,
   CardBody,
@@ -87,7 +88,6 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
-      width: "15%"
     },
     {
       name: "Count",
@@ -97,7 +97,6 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
-      width: "15%"
     },
     {
       name: "Job Title",
@@ -107,24 +106,23 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
-      width: "15%"
     },
     {
       name: "Status",
       label: "Status",
       cell: (row, index) => {
         return row.status === "uploaded" ? (
-          <Button color="warning" style={{ width: '100%' }}>Parsing</Button>
+          <Badge color="warning">Parsing</Badge>
         ) : row.status === "parsed" ? (
-          <Button color="warning" style={{ width: '100%' }}>Parsing</Button>
+          <Badge color="warning">Parsing</Badge>
         ) : row.status === "screening" ? (
-          <Button color="warning" style={{ width: '100%' }}>Screening</Button>
+          <Badge color="warning">Screening</Badge>
         ) : row.status === "complete" ? (
-          <Button color="success" style={{ width: '100%' }}>Complete</Button>
+          <Badge color="success">Complete</Badge>
         ) : row.status === "closed" ? (
-          <Button color="secondary" style={{ width: '100%' }}>Closed</Button>
+          <Badge color="secondary">Closed</Badge>
         ) : (
-          <Button color="danger" style={{ width: '100%' }}>Failed</Button>
+          <Badge color="danger">Failed</Badge>
         );
       },
 
@@ -132,11 +130,9 @@ export const AllJobs = () => {
         filter: true,
         sort: true,
       },
-      width: "20%"
     },
     {
       name: "Action",
-      width: "20%",
       cell: (row) => (
         <Dropdown
           isOpen={activeDropdown === row.id}
@@ -157,7 +153,7 @@ export const AllJobs = () => {
             <DropdownItem>
               <Link
                 to={`/${userType}/job_id/workflows/viewJobDetails/${row.keyName}`}
-              //   state={{ bookDetails: row }}
+                //   state={{ bookDetails: row }}
               >
                 View Details
               </Link>
@@ -181,14 +177,6 @@ export const AllJobs = () => {
     keyName: key,
     ...value,
   }));
-  const options = {
-    selectableRows: "multiple",
-    onSelectedRowsChange: handleRowSelected,
-    pagination: true,
-    center: true,
-    dense: true,
-    responsive: true,
-  };
 
   return (
     <Fragment>
@@ -204,7 +192,9 @@ export const AllJobs = () => {
             <DataTable
               data={transformedData}
               columns={tableColumns}
-              options={options}
+              striped
+              responsive
+              pagination
             />
           </CardBody>
         </Card>
